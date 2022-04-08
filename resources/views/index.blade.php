@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-10">
                                 <h5 class="card-title"><?= $video['title'] ?></h5>
-                                <p class="card-text m-0"><?= $video['display_name'] ?></p>
+                                <p class="card-text m-0"><?= $video['user']['display_name'] ?></p>
                                 <p class="card-text m-0"><?= date("Y-m-d", strtotime($video['published_at'])) ?></p>
                             </div>          
                         </div>          
