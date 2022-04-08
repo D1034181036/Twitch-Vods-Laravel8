@@ -15,7 +15,6 @@ class Videos extends Model
     protected $guarded = [];
 
     public function user() {
-        return $this->belongsTo('App\Models\Users');
-        // return $this->belongsTo(OrderTracker::class, 'shipment_code', 'reference_bbcode');
+        return $this->belongsTo(Users::class, 'user_id', 'user_id');
     }
 }

@@ -53,7 +53,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-2">
-                                <img class="profile-image" src="<?= $video['profile_image_url'] ?>">
+                                <img class="profile-image" src="<?= $video['user']['profile_image_url'] ?>">
                             </div>
                             <div class="col-10">
                                 <h5 class="card-title"><?= $video['title'] ?></h5>
