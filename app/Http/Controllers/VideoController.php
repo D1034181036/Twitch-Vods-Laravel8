@@ -21,6 +21,8 @@ class VideoController extends Controller
     }
 
     public function index(){
+        $this->logController->accessLog();
+
         $videos = Videos::with(['user'])
             ->where('viewable', 1)
             ->where('active', 1)
