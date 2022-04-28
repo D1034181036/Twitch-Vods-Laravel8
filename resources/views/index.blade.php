@@ -33,7 +33,7 @@
             <?php
                 $video['thumbnail_url'] = str_replace('%{width}', '960', $video['thumbnail_url']);
                 $video['thumbnail_url'] = str_replace('%{height}', '540', $video['thumbnail_url']);
-                $video['thumbnail_url'] = $video['thumbnail_url'] !== '' ? $video['thumbnail_url'] : 'assets/img/thumbnail.png';
+                $video['thumbnail_url'] = $video['thumbnail_url'] !== '' ? $video['thumbnail_url'] : 'img/thumbnail.png';
             ?>
             <div class="col mb-4">
                 <div class="card">
