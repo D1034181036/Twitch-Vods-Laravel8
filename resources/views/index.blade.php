@@ -37,18 +37,16 @@
             ?>
             <div class="col mb-4">
                 <div class="card">
-                    <div class="s">
-                        <div class="thumbnail">
-                            <a href="<?= $video['url'] ?>">
-                                <img class="card-img-top" src="<?= $video['thumbnail_url'] ?>">
-                                <div class='view_count'>
-                                    <span>Views: <?= number_format($video['view_count']) ?></span>
-                                </div>
-                                <div class='duration'>
-                                    <span><?= $video['duration'] ?></span>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="thumbnail">
+                        <a href="<?= $video['url'] ?>">
+                            <img class="card-img-top" src="<?= $video['thumbnail_url'] ?>">
+                            <div class='view_count'>
+                                <span>Views: <?= number_format($video['view_count']) ?></span>
+                            </div>
+                            <div class='duration'>
+                                <span><?= $video['duration'] ?></span>
+                            </div>
+                        </a>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -75,7 +73,7 @@
     
     <!-- Copy Right -->
     <div class="bg-dark text-white text-center py-1">
-        <span>ImSoHappySC © 2022</span>
+        <span>KevinChen © 2022</span>
     </div>
 
     <!-- Bootstrap js -->
