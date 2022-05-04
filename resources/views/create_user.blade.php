@@ -13,11 +13,11 @@
                 @csrf
                 <div class="form-group">
                     <label>username:</label>
-                    <input class="form-control" type="text" name="username">
+                    <input class="form-control" type="text" name="username" required>
                 </div>
                 <div class="form-group">
                     <label>code:</label>
-                    <input class="form-control" type="password" name="code">
+                    <input class="form-control" type="password" name="code" required>
                 </div>
                 <div class="form-group">
                     <input class="btn btn-primary mt-2" type="submit" value="Enter">
