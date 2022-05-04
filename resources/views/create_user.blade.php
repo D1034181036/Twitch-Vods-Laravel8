@@ -22,9 +22,20 @@
                 <div class="form-group">
                     <input class="btn btn-primary mt-2" type="submit" value="Enter">
                 </div>
-            </form>
+                <div class="form-group mt-2">
+                    <ul>
+                        @if (session('banner'))
+                            <li>{{ session('banner') }}</li>
+                        @endif
 
-            {{ $banner }}
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+            </form>
         </div>
     </div>
 </body>

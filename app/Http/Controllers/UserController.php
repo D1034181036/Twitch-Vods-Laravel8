@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use App\Http\Controllers\TwitchController;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -12,21 +14,19 @@ class UserController extends Controller
         $this->twitchController = $twitchController;
     }
 
-    public function getAllUsers(){
-        return Users::get();
+    public function index(){
+        return view('create_user');
     }
 
     public function createUserAction(Request $request){
-        if($request->input('username') && $request->input('code')){
-            if($request->input('code') === config('common.secret_code')){
-                $banner = $this->createUser($request->input('username'));
-                return view('create_user', ['banner' => $banner]);
-            }else{
-                return view('create_user', ['banner' => 'Code Error!']);
-            }
-        }
+        $validatedData = $request->validate([
+            'username' => ['required'],
+            'code' => ['required', Rule::in([config('common.secret_code')])],
+        ]);
 
-        return view('create_user', ['banner' => '']);
+        $banner = $this->createUser($validatedData['username']);
+        
+        return redirect()->route('create_user_index')->with(['banner' => $banner]);
     }
 
     private function createUser($username){
@@ -51,5 +51,9 @@ class UserController extends Controller
         ]);
 
         return $result ? 'Insert success!' : 'Insert error!';
+    }
+
+    public function getAllUsers(){
+        return Users::get();
     }
 }

@@ -10,13 +10,9 @@ use App\Models\Videos;
 
 class VideoController extends Controller
 {
-    private $twitchController;
-    private $userController;
     private $logController;
 
-    public function __construct(TwitchController $twitchController, UserController $userController, LogController $logController){
-        $this->twitchController = $twitchController;
-        $this->userController = $userController;
+    public function __construct(LogController $logController){
         $this->logController = $logController;
     }
 
@@ -32,14 +28,16 @@ class VideoController extends Controller
         return view('index', ['videos' => $videos]);
     }
 
-    public function updateVideos(){
-        $logs = ['insertCount' => 0, 'updateCount' => 0, 'setActiveCount' => 0];
+    public function updateVideos(TwitchController $twitchController, UserController $userController){
+        $insertCount = 0;
+        $updateCount = 0;
+        $setActiveCount = 0;
+
         $videoIds = [];
-        
-        $users = $this->userController->getAllUsers();
+        $users = $userController->getAllUsers();
 
         foreach($users as $user){
-            $videos = $this->twitchController->getUserVideos($user->user_id);
+            $videos = $twitchController->getUserVideos($user->user_id);
             foreach($videos as $video){
                 //Rule: duration must > 1 hour
                 if(strpos($video->duration, 'h') !== false){
@@ -49,17 +47,18 @@ class VideoController extends Controller
                     $videoExiest = Videos::where('video_id', $video->id)->count();
 
                     if($videoExiest){
-                        $logs['updateCount'] += $this->updateVideo($video);
+                        $updateCount += $this->updateVideo($video) ? 1 : 0;
                     }else{
-                        $logs['insertCount'] += $this->insertVideo($video);
+                        $insertCount += $this->insertVideo($video) ? 1 : 0;
                     }
                 }
             }
         }
 
-        $logs['setActiveCount'] = $this->setVideoActive($videoIds, 0);
+        // 將失效的影片設定為active = 0
+        $setActiveCount = Videos::where('active', '1')->whereNotIn('video_id', $videoIds)->update(['active' => 0]);
 
-        return $this->logController->updateVideos($logs);
+        return $this->logController->updateVideos($insertCount, $updateCount, $setActiveCount);
     }
 
     private function insertVideo($video){
@@ -77,7 +76,7 @@ class VideoController extends Controller
             'published_at' => date("Y-m-d H:i:s", strtotime($video->published_at)),
         ]);
 
-        return $result ? 1 : 0;
+        return $result;
     }
 
     private function updateVideo($video){
@@ -95,13 +94,7 @@ class VideoController extends Controller
             'published_at' => date("Y-m-d H:i:s", strtotime($video->published_at)),
         ]);
 
-        return $result ? 1 : 0;
-    }
-
-    private function setVideoActive($videoIds, $active){
-        $videos = Videos::whereNotIn('video_id', $videoIds)->update(['active' => $active]);
-
-        return $videos;
+        return $result;
     }
 
     private function durationFormatter($duration){

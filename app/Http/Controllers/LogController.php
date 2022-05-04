@@ -8,11 +8,11 @@ use App\Models\UpdateLog;
 
 class LogController extends Controller
 {
-    public function updateVideos($logs){
+    public function updateVideos($insertCount, $updateCount, $setActiveCount){
         $result = UpdateLog::create([
-            'insert_count' => $logs['insertCount'],
-            'update_count' => $logs['updateCount'],
-            'set_active_count' => $logs['setActiveCount'],
+            'insert_count' => $insertCount,
+            'update_count' => $updateCount,
+            'set_active_count' => $setActiveCount,
         ]);
 
         return $result;
