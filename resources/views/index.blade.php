@@ -29,7 +29,7 @@
         
         <!-- Videos -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-            <?php foreach($videos as $video): ?>
+            @foreach($videos as $video)
             <?php
                 $video['thumbnail_url'] = str_replace('%{width}', '960', $video['thumbnail_url']);
                 $video['thumbnail_url'] = str_replace('%{height}', '540', $video['thumbnail_url']);
@@ -62,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <?php endforeach ?>
+            @endforeach
         </div>
 
         <!-- Bottom Paginate -->
