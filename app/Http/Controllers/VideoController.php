@@ -7,6 +7,7 @@ use App\Http\Controllers\TwitchController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogController;
 use App\Models\Videos;
+use App\Models\Users;
 
 class VideoController extends Controller
 {
@@ -28,13 +29,13 @@ class VideoController extends Controller
         return view('index', ['videos' => $videos]);
     }
 
-    public function updateVideos(TwitchController $twitchController, UserController $userController){
+    public function updateVideos(TwitchController $twitchController){
         $insertCount = 0;
         $updateCount = 0;
         $setActiveCount = 0;
 
         $videoIds = [];
-        $users = $userController->getAllUsers();
+        $users = Users::all();
 
         foreach($users as $user){
             $videos = $twitchController->getUserVideos($user->user_id);

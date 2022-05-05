@@ -52,8 +52,4 @@ class UserController extends Controller
 
         return $result ? 'Insert success!' : 'Insert error!';
     }
-
-    public function getAllUsers(){
-        return Users::get();
-    }
 }
