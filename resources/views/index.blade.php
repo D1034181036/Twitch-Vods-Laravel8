@@ -72,7 +72,7 @@
     </div>
     
     <!-- Copy Right -->
-    <div class="bg-dark text-white text-center py-1">
+    <div class="bg-dark text-white text-center py-1 fixed-bottom">
         <span>KevinChen © 2022</span>
     </div>
 
