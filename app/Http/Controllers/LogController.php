@@ -19,11 +19,15 @@ class LogController extends Controller
     }
 
     public function accessLog(){
-        $result = AccessLog::create([
-            'page' => "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",
-            'ip' => $_SERVER['REMOTE_ADDR'],
-        ]);
+        if(isset($_SERVER['HTTP_HOST']) && isset($_SERVER['REQUEST_URI'])){
+            $result = AccessLog::create([
+                'page' => "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]",
+                'ip' => $_SERVER['REMOTE_ADDR'],
+            ]);
+            
+            return $result;
+        }
 
-        return $result;
+        return false;
     }
 }
