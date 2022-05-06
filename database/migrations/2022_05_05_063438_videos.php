@@ -19,7 +19,7 @@ class Videos extends Migration
             $table->Integer('video_id');
             $table->string('type');
             $table->string('title');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('url');
             $table->string('thumbnail_url');
             $table->tinyInteger('viewable');
