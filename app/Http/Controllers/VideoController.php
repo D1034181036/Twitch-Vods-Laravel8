@@ -12,8 +12,10 @@ use App\Models\Users;
 class VideoController extends Controller
 {
     private $logController;
+    private $twitchController;
 
-    public function __construct(LogController $logController){
+    public function __construct(TwitchController $twitchController, LogController $logController){
+        $this->twitchController = $twitchController;
         $this->logController = $logController;
     }
 
@@ -29,7 +31,7 @@ class VideoController extends Controller
         return view('index', ['videos' => $videos]);
     }
 
-    public function updateVideos(TwitchController $twitchController){
+    public function updateVideos(){
         $insertCount = 0;
         $updateCount = 0;
         $setActiveCount = 0;
@@ -38,7 +40,7 @@ class VideoController extends Controller
         $users = Users::all();
 
         foreach($users as $user){
-            $videos = $twitchController->getUserVideos($user->user_id);
+            $videos = $this->twitchController->getUserVideos($user->user_id);
             foreach($videos as $video){
                 //Rule: duration must > 1 hour
                 if(strpos($video->duration, 'h') !== false){

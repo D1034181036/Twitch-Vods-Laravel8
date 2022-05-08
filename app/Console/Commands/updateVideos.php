@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\TwitchController;
 
 class updateVideos extends Command
 {

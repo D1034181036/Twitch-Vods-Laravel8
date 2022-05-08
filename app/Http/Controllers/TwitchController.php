@@ -8,10 +8,6 @@ class TwitchController extends Controller
 {
     private $token;
 
-    public function __construct(){
-        $this->token = $this->getAccessToken();
-    }
-
     private function getAccessToken(){
         $url = 'https://id.twitch.tv/oauth2/token';
 
@@ -39,6 +35,8 @@ class TwitchController extends Controller
     }
 
     public function getUser($username){
+        $this->token = $this->token ?? $this->getAccessToken();
+
         $query = http_build_query([
             'login' => $username,
         ]);
@@ -63,6 +61,8 @@ class TwitchController extends Controller
     }
 
     public function getUserVideos($userId){
+        $this->token = $this->token ?? $this->getAccessToken();
+        
         $query = http_build_query([
             'user_id' => $userId,
             'type' => 'archive',
