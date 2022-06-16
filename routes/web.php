@@ -18,5 +18,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [VideoController::class, 'index']);
 
-Route::get('/create_user', [UserController::class, 'index']);
+Route::get('/create_user', [UserController::class, 'index'])->name('create_user_index');
 Route::post('/create_user', [UserController::class, 'createUser']);
