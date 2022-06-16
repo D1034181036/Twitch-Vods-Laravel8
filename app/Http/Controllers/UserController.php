@@ -2,54 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Users;
-use App\Http\Controllers\TwitchController;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
+use App\Http\Requests\CreateUserRequest;
+use App\Services\TwitchApiService;
+use App\Repositories\UserRepository;
 
 class UserController extends Controller
 {
-    public function __construct(TwitchController $twitchController){
-        $this->twitchController = $twitchController;
-    }
 
     public function index(){
         return view('create_user');
     }
 
-    public function createUserAction(Request $request){
-        $validatedData = $request->validate([
-            'username' => ['required'],
-            'code' => ['required', Rule::in([config('common.secret_code')])],
-        ]);
-
-        $banner = $this->createUser($validatedData['username']);
-        
-        return redirect()->route('create_user_index')->with(['banner' => $banner]);
-    }
-
-    private function createUser($username){
-        // (1) Already have this user           => false
-        // (2) Twitch API don't have this user  => false
-        // (3) Twitch API have this user        => insert
-
-        if(Users::where('username', $username)->first()){
-            return 'Our database already have this user.';
+    public function createUser(CreateUserRequest $request, TwitchApiService $twitchApiService, UserRepository $userRepository){
+        if($userRepository->exists('username', $request->username)){
+            $message = 'Our database already have this user.';
+        }else{
+            if($user = $twitchApiService->getUser($request->username)){
+                $result = $userRepository->createFromTwitchApi($user);
+                $message = $result ? 'Create success.' : 'Create error.';
+            }else{
+                $message = 'Getting user info error.';
+            }
         }
 
-        $user = $this->twitchController->getUser($username);
-        if(!$user){
-            return 'Getting user info error.';
-        }
-        
-        $result = Users::create([
-            'user_id' => $user->id,
-            'username' => $user->login,
-            'display_name' => $user->display_name,
-            'profile_image_url' => $user->profile_image_url,
-        ]);
-
-        return $result ? 'Insert success!' : 'Insert error!';
+        return redirect()->route('create_user_index')->with(['banner' => $message]);
     }
 }

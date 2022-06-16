@@ -1,8 +1,9 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VideoController;
-use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +18,5 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [VideoController::class, 'index']);
 
-Route::get('/create_user', [UserController::class, 'index'])->name('create_user_index');
-Route::post('/create_user', [UserController::class, 'createUserAction']);
+Route::get('/create_user', [UserController::class, 'index']);
+Route::post('/create_user', [UserController::class, 'createUser']);

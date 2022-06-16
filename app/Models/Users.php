@@ -11,6 +11,5 @@ class Users extends Model
 
     protected $table = 'users';
 
-    // column的黑名單為空，等同於省略fillable
     protected $guarded = [];
 }

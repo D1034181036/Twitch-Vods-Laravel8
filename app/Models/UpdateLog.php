@@ -11,7 +11,6 @@ class UpdateLog extends Model
 
     protected $table = 'update_log';
 
-    // column的黑名單為空，等同於省略fillable
     protected $guarded = [];
 
     public $timestamps = false;

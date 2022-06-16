@@ -15,4 +15,4 @@ use App\Http\Controllers\VideoController;
 |
 */
 
-Route::get('/update_videos', [VideoController::class, 'updateVideos']);
+Route::get('/update_videos', [VideoController::class, 'updateVideosFromTwitch']);

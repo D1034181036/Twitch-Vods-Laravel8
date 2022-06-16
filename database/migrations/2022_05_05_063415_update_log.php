@@ -17,7 +17,7 @@ class UpdateLog extends Migration
             $table->id();
             $table->tinyInteger('insert_count');
             $table->tinyInteger('update_count');
-            $table->tinyInteger('set_active_count');
+            $table->tinyInteger('soft_delete_count');
             $table->timestamp('updated_at')->useCurrent();
         });
     }

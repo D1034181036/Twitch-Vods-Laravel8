@@ -11,7 +11,6 @@ class AccessLog extends Model
 
     protected $table = 'access_log';
 
-    // column的黑名單為空，等同於省略fillable
     protected $guarded = [];
 
     public $timestamps = false;

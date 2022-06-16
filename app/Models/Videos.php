@@ -11,7 +11,6 @@ class Videos extends Model
 
     protected $table = 'videos';
 
-    // column的黑名單為空，等同於省略fillable
     protected $guarded = [];
 
     public function user() {
