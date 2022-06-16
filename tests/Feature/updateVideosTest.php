@@ -18,7 +18,7 @@ class updateVideosTest extends TestCase
 
     public function test_example()
     {
-        $response = $this->videoController->updateVideos();
+        $response = $this->videoController->updateVideosFromTwitch();
         $this->assertTrue(true);
     }
 }
