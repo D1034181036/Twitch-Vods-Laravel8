@@ -15,8 +15,9 @@ class AccessLog extends Migration
     {
         Schema::create('access_log', function (Blueprint $table) {
             $table->id();
-            $table->string('page');
-            $table->string('ip');
+            $table->string('host')->nullable();
+            $table->string('request_uri')->nullable();
+            $table->string('ip')->nullable();
             $table->timestamp('created_at')->useCurrent();
         });
     }

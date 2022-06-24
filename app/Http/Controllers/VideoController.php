@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\TwitchApiService;
 use App\Repositories\VideoRepository;
+use App\Repositories\AccessLogRepository;
 use App\Models\Users;
 use App\Models\UpdateLog;
 
@@ -11,13 +12,16 @@ class VideoController extends Controller
 {
     private $videoRepository;
     private $twitchApiService;
+    private $accessLogRepository;
 
-    public function __construct(VideoRepository $videoRepository, TwitchApiService $twitchApiService){
+    public function __construct(VideoRepository $videoRepository, TwitchApiService $twitchApiService, AccessLogRepository $accessLogRepository){
         $this->videoRepository = $videoRepository;
         $this->twitchApiService = $twitchApiService;
+        $this->accessLogRepository = $accessLogRepository;
     }
 
     public function index(){
+        $this->accessLogRepository->createAccessLog();
         $videos = $this->videoRepository->getIndexVideos();
 
         return view('index', ['videos' => $videos]);

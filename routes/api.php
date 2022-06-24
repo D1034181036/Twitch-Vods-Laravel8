@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VideoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,5 @@ use App\Http\Controllers\VideoController;
 */
 
 Route::get('/update_videos', [VideoController::class, 'updateVideosFromTwitch']);
+
+Route::get('/get_status', [StatusController::class, 'getStatus']);
