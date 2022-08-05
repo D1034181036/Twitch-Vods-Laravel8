@@ -31,8 +31,8 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
             @foreach($videos as $video)
             <?php
-                $video['thumbnail_url'] = str_replace('%{width}', '960', $video['thumbnail_url']);
-                $video['thumbnail_url'] = str_replace('%{height}', '540', $video['thumbnail_url']);
+                $video['thumbnail_url'] = str_replace('%{width}', '480', $video['thumbnail_url']);
+                $video['thumbnail_url'] = str_replace('%{height}', '270', $video['thumbnail_url']);
                 $video['thumbnail_url'] = $video['thumbnail_url'] !== '' ? $video['thumbnail_url'] : 'img/thumbnail.png';
             ?>
             <div class="col mb-4">
