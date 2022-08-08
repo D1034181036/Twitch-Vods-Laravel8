@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/update_videos', [VideoController::class, 'updateVideosFromTwitch']);
-
+Route::get('/update_videos', [VideoController::class, 'updateVideos']);
 Route::get('/get_status', [StatusController::class, 'getStatus']);
+Route::get('/test', [TestController::class, 'index']);

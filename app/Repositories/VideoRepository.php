@@ -21,7 +21,6 @@ class VideoRepository
             ->paginate(12);
     }
 
-
     public function updateOrCreate($video){
         return $this->model
             ->updateOrCreate(
@@ -43,6 +42,13 @@ class VideoRepository
             );
     }
 
+    public function softDeleteOtherVideos($videoIds){
+        return $this->model
+            ->where('active', '1')
+            ->whereNotIn('video_id', $videoIds)
+            ->update(['active' => 0]);
+    }
+
     private function durationFormatter($duration){
         preg_match_all('!\d+!', $duration, $matches);
 
@@ -52,12 +58,5 @@ class VideoRepository
         }
 
         return $formatDuration;
-    }
-
-    public function softDeleteOtherVideos($videoIds){
-        return $this->model
-            ->where('active', '1')
-            ->whereNotIn('video_id', $videoIds)
-            ->update(['active' => 0]);
     }
 }

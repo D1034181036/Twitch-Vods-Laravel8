@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\VideoController;
+use App\Services\VideoService;
 
 class updateVideos extends Command
 {
@@ -36,8 +36,8 @@ class updateVideos extends Command
      *
      * @return int
      */
-    public function handle(VideoController $videoController)
+    public function handle(VideoService $videoService)
     {
-        $videoController->updateVideosFromTwitch();
+        $videoService->updateVideosFromTwitch();
     }
 }
