@@ -21,7 +21,7 @@ class VideoRepository
             ->paginate(12);
     }
 
-    public function updateOrCreate($video){
+    public function updateOrCreateFromTwitch($video){
         return $this->model
             ->updateOrCreate(
                 [

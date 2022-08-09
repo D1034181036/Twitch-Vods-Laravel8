@@ -29,7 +29,7 @@ class VideoService
                 // Rule: duration must > 1 hour
                 if(strpos($video->duration, 'h') !== false){
                     $videoIdList[] = $video->id;
-                    $result = $this->videoRepository->updateOrCreate($video);
+                    $result = $this->videoRepository->updateOrCreateFromTwitch($video);
                     $result->wasRecentlyCreated ? $insertCount++ : $updateCount++;
                 }
             }
@@ -38,9 +38,9 @@ class VideoService
         $softDeleteCount = $this->videoRepository->softDeleteOtherVideos($videoIdList);
 
         UpdateLog::create([
-            'insert_count' => 0,
-            'update_count' => 0,
-            'soft_delete_count' => 0,
+            'insert_count' => $insertCount,
+            'update_count' => $updateCount,
+            'soft_delete_count' => $softDeleteCount,
         ]);
 
         return true;
